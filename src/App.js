@@ -2,24 +2,33 @@ import Button from "./Button";
 import styled from "./App.module.css";
 import { useState, useEffect } from "react";
 
-function App() {
-  const [counter, setValue] = useState(0);
-  const onClick =()=> setValue((e)=> e +1);
-  console.log("i run all the time");
+function Hello(){
 
-  const iRunOnlyOnce =()=>{
-    console.log("i run only once");
-  }
-
-  useEffect(()=>{
-    console.log("call he api...")
+  useEffect(function (){
+    console.log("hi :)");
+    return function (){
+      console.log("bye :(");
+    };
   },[]);
+
+  useEffect(()=> {
+    console.log("hi :>");
+    return ()=> console.log("bye: ");
+  },[]);
+
+  return <h1>Hello</h1>
+}
+
+function App() {
+  const [showing, setShowing] = useState(false);
+  const onClick =()=> setShowing((prev)=>!prev);
   return (
     <div>
-      <h1>{counter}</h1>
-      <button onClick={onClick}>click me</button>
-    </div>
-  );
+    {showing ? <Hello /> : null}
+    <button onClick={onClick}>{showing ? "Hide": "show"}</button>
+  </div>
+  )
+
 }
 
 export default App;
